@@ -1,2 +1,2 @@
 # Training
-Den 1 : seynamovani
+Den 1 : seznamovani
