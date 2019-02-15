@@ -3,10 +3,11 @@ using Xunit;
 
 namespace VojtaTest
 {
+
     public class MatcherTest
     {
         [Theory]
-        [InlineData("()",true)]
+        [InlineData("()", true)]
         [InlineData("((", false)]
         [InlineData(")(", false)]
         [InlineData("((()A))", true)]
@@ -19,7 +20,7 @@ namespace VojtaTest
         }
 
         [Theory]
-        [InlineData("()",true)]
+        [InlineData("()", true)]
         [InlineData("(]", false)]
         [InlineData(")(]", false)]
         [InlineData("([(([])A)])", true)]

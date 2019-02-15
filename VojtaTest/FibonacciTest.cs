@@ -25,8 +25,8 @@ namespace VojtaTest
             Assert.Equal(0, fa[0]);
             Assert.Equal(1, fa[1]);
             //[0, 1, 1, 2, 3, 5, 8.
-            for (var i = 2; i < n; i++) 
-                Assert.Equal(fa[i-1]+fa[i-2], fa[i]);
+            for (var i = 2; i < n; i++)
+                Assert.Equal(fa[i - 1] + fa[i - 2], fa[i]);
 
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Vojta
 {
+
     public class Matcher
     {
         public bool Simple(string expression)
