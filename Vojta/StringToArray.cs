@@ -19,7 +19,7 @@ namespace Vojta
 
         public IEnumerable<int> Convert(string expression)
         {
-            var numbers = expression.Split(','); //"1,3,24" -> ["1", "3", "24"]
+            var numbers = expression.Split(',', StringSplitOptions.RemoveEmptyEntries); //"1,3,24" -> ["1", "3", "24"]
 
             //["1", "2", "24"] -> [1, 2, 24]
 
