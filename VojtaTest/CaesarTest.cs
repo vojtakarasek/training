@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
+﻿using Xunit;
 using Vojta;
 
 namespace VojtaTest
@@ -23,7 +20,8 @@ namespace VojtaTest
         void Encodes(string plain, int key, string cipher)
         {
             var caesar = new Caesar();
-            Assert.Equal(cipher, caesar.Encode(plain, key));
+            var encrypted = caesar.Encode(caesar.PrepareData(plain), key);
+            Assert.Equal(cipher, encrypted);
         }
 
         [Theory]
@@ -33,6 +31,16 @@ namespace VojtaTest
         {
             var caesar = new Caesar();
             Assert.Equal(plain, caesar.Decode(cipher, key));
+        }
+
+
+
+       [Fact]
+       void CanDecode()
+        {
+            const string message = "HWVEJAOOPDAMQWHEPUPDWPIWGAOUKQCKPKCNAWPABBKNPPKNAZQYAKRANWHHAJANCUATLAJZEPQNAEPIWGAOUKQSNEPAHWXKNOWREJCLNKCNWIOPDWPKPDANLAKLHASEHHBEJZQOABQHWJZZKYQIAJPSDWPUKQSNKPAOKUKQZKJPDWRAPKWJOSANOKIWJUMQAOPEKJOWXKQPEP";
+            var caesar = new Caesar();
+            Assert.Equal(22, caesar.FindKey(message, new EnglishFrequency()));
         }
 
     }
