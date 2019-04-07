@@ -1,4 +1,5 @@
-﻿using Vojta;
+﻿using System.Linq;
+using Vojta;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -35,6 +36,13 @@ namespace VojtaTest
                     Assert.True(board.TryPlaceQueen(pos));
             }
             Assert.Equal(2, count);
+        }
+
+        [Fact]
+        public void SolverFinds92Solutions()
+        {
+            var solver = new QueenSolver(8);
+            Assert.Equal(92, solver.Solve().Count());
         }
     }
 }
