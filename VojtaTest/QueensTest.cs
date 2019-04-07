@@ -1,5 +1,6 @@
 ﻿using Vojta;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace VojtaTest
 {
@@ -19,15 +20,21 @@ namespace VojtaTest
             Assert.True(board.TryPlaceQueen(new Position { Column = 3, Row = 1 }));
         }
 
+        [Fact]
+        public void SolverFindsSolutions()
+        {
+            var solver = new QueenSolver(4);
+            int count = 0;
+            foreach (var solution in solver.Solve())
+            {
+                count++;
 
-
-
-
-
-
-
+                Assert.Equal(4, solution.Count);
+                var board = new Board(4);
+                foreach (var pos in solution)
+                    Assert.True(board.TryPlaceQueen(pos));
+            }
+            Assert.Equal(2, count);
+        }
     }
-    
-
-
 }
