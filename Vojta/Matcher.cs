@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace Vojta
 {
-
     public class Matcher
     {
         public bool Simple(string expression)
@@ -38,7 +37,6 @@ namespace Vojta
 
         bool IsClosing(char c, out char opening)
         {
-
             var pos = Closing.IndexOf(c);
             if (pos == -1)
             {
