@@ -14,6 +14,7 @@ namespace Shapes
             shapes.Add(Shift(new TriangleArea(10, 10, true), 15, 0));
             shapes.Add(new TriangleArea(9, 10, false));
             shapes.Add(Shift(new BoxArea(8, 8), 9, 5));
+            shapes.Add(Shift(new CircleArea(5), 6, 6));
 
             for (int y = 0; y < height; y++)
             {

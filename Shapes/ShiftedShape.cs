@@ -17,10 +17,8 @@
         {
             var shapeX = x - _offsetX;
             var shapeY = y - _offsetY;
-            if (shapeX < 0 || shapeY < 0)
-                return false;
-            else
-                return _shape.IsFilled(shapeX, shapeY);
+         
+            return _shape.IsFilled(shapeX, shapeY);
         }
     }
 }
