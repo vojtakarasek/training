@@ -14,14 +14,15 @@
         }
 
         public bool IsFilled(int x, int y)
-        {   
+        {
+            if (x < 0 || y < 0)
+                return false;
             if (x > _width || y > _height)
                 return false;
             if (_left)
                 return  x <= y;
             else
-                return x > _height - y;
-            
+                return x > _height - y;            
         }
     }
 }
