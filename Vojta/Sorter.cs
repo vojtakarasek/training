@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Vojta
 {
     public class Sorter
@@ -6,13 +8,9 @@ namespace Vojta
         public void BubbleSort(int[] numbers)
         {
             for (var i = 0; i < numbers.Length; i++)
-                for (var j = 0; j < numbers.Length - 1; j++)
+                for (var j = 0; j < numbers.Length - 1 - i; j++)
                     if (numbers[j] > numbers[j + 1])
-                    {
-                        var storage = numbers[j];
-                        numbers[j] = numbers[j + 1];
-                        numbers[j + 1] = storage;
-                    }
+                        (numbers[j], numbers[j + 1]) = (numbers[j + 1], numbers[j]);
         }
 
         public void QuickSort(int[] numbers)
@@ -27,6 +25,8 @@ namespace Vojta
             QuickSort(numbers, start, middle);
             QuickSort(numbers, middle + 1, end);
         }
+
+
 
         int Partition(int[] numbers, int start, int end)
         {
@@ -53,6 +53,41 @@ namespace Vojta
             var storage = numbers[r];
             numbers[r] = numbers[l];
             numbers[l] = storage;
+        }
+        public void MergeSort(int[] numbers)
+        {
+            var arr = MergeSort(numbers.AsSpan());
+            Array.Copy(arr, numbers, arr.Length);
+        }
+
+        int[] MergeSort(Span<int> span)
+        {
+            if (span.Length == 1)
+                return span.ToArray();
+
+            var middle = span.Length / 2;
+            var left = MergeSort(span.Slice(0, middle));
+            var right = MergeSort(span.Slice(middle));
+            return Merge(left, right);
+        }
+
+        int[] Merge(int[] left, int[] right)
+        {
+            var result = new int[left.Length + right.Length];
+            var l = 0;
+            var r = 0;
+            for (var i = 0; i < result.Length; i++)
+            {
+                if (l == left.Length)
+                    result[i] = right[r++];
+                else if (r == right.Length)
+                    result[i] = left[l++];
+                else if (left[l] <= right[r])
+                    result[i] = left[l++];
+                else
+                    result[i] = right[r++];
+            }
+            return result;
         }
     }
 }
