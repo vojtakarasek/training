@@ -6,3 +6,5 @@ packages
 *.suo
 *.bak
 /.vs/*
+.idea
+DesignTimeBuild
