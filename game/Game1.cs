@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace game
 {
@@ -13,6 +15,7 @@ namespace game
         int _player1X, _player1Y;
         int _speedPlayer;
 
+
         Texture2D _player2;
         int _player2X, _player2Y;
         Color _color;
@@ -22,6 +25,8 @@ namespace game
         int _speedX;
         int _speedY;
 
+        SoundEffect _kick;
+
 
 
 
@@ -30,6 +35,8 @@ namespace game
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            
         }
 
         protected override void Initialize()
@@ -37,6 +44,11 @@ namespace game
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
+            _graphics.PreferredBackBufferWidth = 1024;
+            _graphics.PreferredBackBufferHeight = 768;
+            _graphics.ApplyChanges();
+
             _color = Color.CornflowerBlue;
             _ball = Content.Load<Texture2D>("Sprites/ball");
             _speedX = 5;
@@ -53,6 +65,8 @@ namespace game
             _player2X = 760;
             _player2Y = 230;
             _speedPlayer = 5;
+
+            _kick = Content.Load<SoundEffect>("Sounds/hitbox");
         }
 
         protected override void LoadContent()
@@ -62,6 +76,13 @@ namespace game
             // TODO: use this.Content to load your game content here
         }
 
+        void PlayKick()
+        {
+            _kick.Play();
+            //MediaPlayer.Play(_kick);
+        }
+
+
         protected override void Update(GameTime gameTime)
         {
             BallMove();
@@ -69,6 +90,8 @@ namespace game
             Player1Move();
 
             Player2Move();
+
+            BallCollision();
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -102,9 +125,48 @@ namespace game
             _ballY += _speedY;
 
             if (_ballX > Window.ClientBounds.Width - 40 || _ballX < 0)
+            {
                 _speedX *= -1;
+                PlayKick();
+            }
             if (_ballY > Window.ClientBounds.Height - 40 || _ballY < 0)
+            {
                 _speedY *= -1;
+                PlayKick();
+            }
+        }
+
+        void BallCollision()
+        {
+            if (_player1X == _ballX + 40)
+                if (_player1Y <= _ballY + 40 && _player1Y >= _ballY - 66)
+                                 _speedX *= -1;
+            if (_player1X + 40 == _ballX)
+                if (_player1Y <= _ballY + 40 && _player1Y >= _ballY - 66)
+                    _speedX *= -1;
+            if (_player1Y == _ballY + 40)
+                if (_player1X <= _ballX + 40 && _player1X >= _ballX - 40)
+                    _speedY *= -1;
+            if (_player1Y + 65 == _ballY)
+                if (_player1X <= _ballX + 40 && _player1X >= _ballX - 40)
+                    _speedY *= -1;
+
+
+
+            if (_player2X == _ballX + 40)
+                if (_player2Y <= _ballY + 40 && _player2Y >= _ballY - 66)
+                    _speedX *= -1;
+            if (_player2X + 40 == _ballX)
+                if (_player2Y <= _ballY + 40 && _player2Y >= _ballY - 66)
+                    _speedX *= -1;
+            if (_player2Y == _ballY + 40)
+                if (_player2X <= _ballX + 40 && _player2X >= _ballX - 40)
+                    _speedY *= -1;
+            if (_player2Y + 65 == _ballY)
+                if (_player2X <= _ballX + 40 && _player2X >= _ballX - 40)
+                    _speedY *= -1;
+
+
         }
 
         protected override void Draw(GameTime gameTime)
