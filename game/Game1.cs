@@ -11,6 +11,7 @@ namespace game
         GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;
         Texture2D _ball;
+        Texture2D _background;
         Texture2D _player1;
         int _player1X, _player1Y;
         int _speedPlayer;
@@ -18,7 +19,8 @@ namespace game
 
         Texture2D _player2;
         int _player2X, _player2Y;
-        Color _color;
+        
+        
         
         int _ballX;
         int _ballY;
@@ -45,11 +47,12 @@ namespace game
 
             base.Initialize();
 
-            _graphics.PreferredBackBufferWidth = 1024;
+            _graphics.PreferredBackBufferWidth = 1365;
             _graphics.PreferredBackBufferHeight = 768;
             _graphics.ApplyChanges();
+            
+            _background = Content.Load<Texture2D>("Sprites/pitch");
 
-            _color = Color.CornflowerBlue;
             _ball = Content.Load<Texture2D>("Sprites/ball");
             _speedX = 5;
             _speedY = 5;
@@ -171,9 +174,10 @@ namespace game
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(_color);
+            //GraphicsDevice.Clear(_background);
 
             _spriteBatch.Begin();
+            _spriteBatch.Draw(_background, new Rectangle(0, 0, 1365, 768), Color.White);
             _spriteBatch.Draw(_ball, new Rectangle(_ballX, _ballY, 40, 40), Color.White);
             _spriteBatch.Draw(_player1, new Rectangle(_player1X, _player1Y, 40, 65), Color.White);
             _spriteBatch.Draw(_player2, new Rectangle(_player2X, _player2Y, 40, 65), Color.White);
