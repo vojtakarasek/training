@@ -13,6 +13,12 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Sounds/applause.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Sounds/applause.wav
+
 #begin Sounds/hitbox.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

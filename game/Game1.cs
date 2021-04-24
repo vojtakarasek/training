@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System;
 
 namespace game
 {
@@ -19,16 +20,16 @@ namespace game
 
         Texture2D _player2;
         int _player2X, _player2Y;
-        
-        
-        
+
+
+
         int _ballX;
         int _ballY;
         int _speedX;
         int _speedY;
 
         SoundEffect _kick;
-
+        SoundEffect _goal;
 
 
 
@@ -38,7 +39,7 @@ namespace game
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            
+
         }
 
         protected override void Initialize()
@@ -50,7 +51,7 @@ namespace game
             _graphics.PreferredBackBufferWidth = 1365;
             _graphics.PreferredBackBufferHeight = 768;
             _graphics.ApplyChanges();
-            
+
             _background = Content.Load<Texture2D>("Sprites/pitch");
 
             _ball = Content.Load<Texture2D>("Sprites/ball");
@@ -70,6 +71,7 @@ namespace game
             _speedPlayer = 5;
 
             _kick = Content.Load<SoundEffect>("Sounds/hitbox");
+            _goal = Content.Load<SoundEffect>("Sounds/applause");
         }
 
         protected override void LoadContent()
@@ -79,6 +81,11 @@ namespace game
             // TODO: use this.Content to load your game content here
         }
 
+        void PlayGoal()
+        {
+            _goal.Play();
+        }
+        
         void PlayKick()
         {
             _kick.Play();
@@ -95,6 +102,8 @@ namespace game
             Player2Move();
 
             BallCollision();
+
+            BallScore();
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -143,7 +152,7 @@ namespace game
         {
             if (_player1X == _ballX + 40)
                 if (_player1Y <= _ballY + 40 && _player1Y >= _ballY - 66)
-                                 _speedX *= -1;
+                    _speedX *= -1;
             if (_player1X + 40 == _ballX)
                 if (_player1Y <= _ballY + 40 && _player1Y >= _ballY - 66)
                     _speedX *= -1;
@@ -170,6 +179,15 @@ namespace game
                     _speedY *= -1;
 
 
+        }
+        private void BallScore()
+        {
+            if (_ballX == 0)
+                if (_ballY > 210 && _ballY < 520)
+                    PlayGoal();
+            if (_ballX == 1325)
+                if (_ballY > 210 && _ballY < 520)
+                    PlayGoal();
         }
 
         protected override void Draw(GameTime gameTime)
