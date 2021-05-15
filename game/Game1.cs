@@ -31,6 +31,9 @@ namespace game
         SoundEffect _kick;
         SoundEffect _goal;
 
+        SpriteFont _font;
+        int _goals1 = 0;
+        int _goals2 = 0;
 
 
         public Game1()
@@ -72,6 +75,8 @@ namespace game
 
             _kick = Content.Load<SoundEffect>("Sounds/hitbox");
             _goal = Content.Load<SoundEffect>("Sounds/applause");
+
+            _font = Content.Load<SpriteFont>("Fonts/File");
         }
 
         protected override void LoadContent()
@@ -184,18 +189,23 @@ namespace game
         {
             if (_ballX == 0)
                 if (_ballY > 210 && _ballY < 520)
+                {
                     PlayGoal();
+                    _goals2++;
+                }
             if (_ballX == 1325)
                 if (_ballY > 210 && _ballY < 520)
+                {
                     PlayGoal();
+                    _goals1++;
+                }
         }
 
         protected override void Draw(GameTime gameTime)
         {
-            //GraphicsDevice.Clear(_background);
-
             _spriteBatch.Begin();
             _spriteBatch.Draw(_background, new Rectangle(0, 0, 1365, 768), Color.White);
+            //_spriteBatch.DrawString(_font, $"{_goals1}:{_goals2}", new Vector2(5, 5), Color.AntiqueWhite);
             _spriteBatch.Draw(_ball, new Rectangle(_ballX, _ballY, 40, 40), Color.White);
             _spriteBatch.Draw(_player1, new Rectangle(_player1X, _player1Y, 40, 65), Color.White);
             _spriteBatch.Draw(_player2, new Rectangle(_player2X, _player2Y, 40, 65), Color.White);
