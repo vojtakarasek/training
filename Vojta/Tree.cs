@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace Vojta
 {
+
+    public interface ITreeVisitor
+    {
+
+        void Visit(int nodeValue);
+    }
+
     public class Tree
     {
         public int Value { get; set; }
@@ -19,14 +26,15 @@ namespace Vojta
             Right = right;
         }
 
-        public string Iterate(string accumulator, Func<string, int, string> aggr)
+        public void Iterate(ITreeVisitor visitor)
         {
             if (Left != null)
-                 accumulator = Left.Iterate(accumulator, aggr);
-            accumulator = aggr(accumulator, Value);
+                 Left.Iterate(visitor);
+
+            visitor.Visit(Value);
+
             if (Right != null)
-                accumulator = Right.Iterate(accumulator, aggr);
-            return accumulator;
+                Right.Iterate(visitor);
         }
     }
 
